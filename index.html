@@ -53,7 +53,6 @@
 
 <script>
   // Lista de tokens válidos (exemplo)
-  // No real, você pode gerar tokens aleatórios no clique do botão da página principal e colocar aqui
   const validTokens = ["TOKEN1", "TOKEN2", "TOKEN3"]; 
 
   // Pega o token da URL
@@ -67,7 +66,6 @@
     message.innerHTML = "Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo!";
     vipLink.style.display = "block";
 
-    // Expira token após 10 minutos
     setTimeout(()=>{
       const index = validTokens.indexOf(token);
       if(index !== -1) validTokens.splice(index,1);
@@ -88,13 +86,20 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-  fbq('init', '2043115963189457');
-  fbq('track', 'Purchase', { value: 19.90, currency: 'BRL' });
+  // Inicializa os Pixels
+  fbq('init', '2043115963189457'); // Pixel antigo
+  fbq('init', '2362506854208367'); // Pixel novo
+
+  // Eventos
+  fbq('track', 'Purchase', { value: 19.90, currency: 'BRL', }, {pixelId: '2043115963189457'}); // antigo
+  fbq('track', 'PageView', {}, {pixelId: '2362506854208367'}); // novo
 </script>
 
 <noscript>
 <img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
+<img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=2362506854208367&ev=PageView&noscript=1"/>
 </noscript>
 </body>
 </html>
