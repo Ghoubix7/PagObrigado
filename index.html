@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt‑BR">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF‑8"/>
-  <meta name="viewport" content="width=device‑width, initial‑scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Obrigado pelo pagamento!</title>
   <style>
     body {
@@ -18,16 +18,8 @@
       text-align: center;
       padding: 0 20px;
     }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #ccc;
-      margin-bottom: 40px;
-      max-width: 90%;
-    }
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    p { font-size: 1.1rem; color: #ccc; margin-bottom: 40px; max-width: 90%; }
     .btn {
       display: block;
       width: 260px;
@@ -45,29 +37,54 @@
       color: #fff;
       background: linear-gradient(90deg, #ff0057, #ff7b00);
     }
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(255,120,0,0.6);
-    }
-    footer {
-      margin-top: 50px;
-      font-size: 0.9rem;
-      color: #777;
-    }
+    .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,120,0,0.6); }
+    footer { margin-top: 50px; font-size: 0.9rem; color: #777; }
   </style>
 </head>
 <body>
-  <h1>Obrigado pelo seu pagamento!</h1>
-  <p>Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo no Telegram.</p>
+  <h1>Obrigado pelo pagamento!</h1>
+  <p id="message">Verificando seu pagamento...</p>
 
-  <a href="https://t.me/+PbZt1Z72R001MmIx" class="btn" target="_blank">
+  <a id="vip-link" href="https://t.me/+PbZt1Z72R001MmIx" class="btn" target="_blank" style="display:none;">
     Entrar no Grupo VIP Agora
   </a>
 
   <footer>© 2025 | Acesso Exclusivo</footer>
 
-  <!-- Meta Pixel Code -->
   <script>
+    // Função para gerar token aleatório
+    function generateToken(length = 16){
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let token = '';
+      for(let i=0;i<length;i++){
+        token += chars.charAt(Math.floor(Math.random()*chars.length));
+      }
+      return token;
+    }
+
+    // Checa se o token já existe no sessionStorage
+    let token = sessionStorage.getItem('vipToken');
+    if(!token){
+      // Se não existir, gera um novo
+      token = generateToken();
+      sessionStorage.setItem('vipToken', token);
+    }
+
+    // Validando token para liberar o grupo
+    const message = document.getElementById("message");
+    const vipLink = document.getElementById("vip-link");
+
+    if(token){
+      message.innerHTML = "Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo!";
+      vipLink.style.display = "block";
+
+      // Opcional: remover token após 10 minutos para maior segurança
+      setTimeout(()=>{ sessionStorage.removeItem('vipToken'); vipLink.style.display='none'; message.innerHTML='Token expirado. Refaça o processo de pagamento.'; }, 10*60*1000);
+    } else {
+      message.innerHTML = "Token inválido ou ausente. Por favor, finalize o pagamento para receber acesso.";
+    }
+
+    // Meta Pixel
     !function(f,b,e,v,n,t,s)
     {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
     n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -80,6 +97,7 @@
     fbq('init', '2043115963189457');
     fbq('track', 'Purchase', { value: 19.90, currency: 'BRL' });
   </script>
+
   <noscript>
     <img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
