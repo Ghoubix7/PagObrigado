@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt‑BR">
+<head>
+  <meta charset="UTF‑8"/>
+  <meta name="viewport" content="width=device‑width, initial‑scale=1.0"/>
+  <title>Obrigado pelo pagamento!</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #111, #222);
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      padding: 0 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 40px;
+      max-width: 90%;
+    }
+    .btn {
+      display: block;
+      width: 260px;
+      padding: 15px 20px;
+      margin: 12px auto;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      color: #fff;
+      background: linear-gradient(90deg, #ff0057, #ff7b00);
+    }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,120,0,0.6);
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>Obrigado pelo seu pagamento!</h1>
+  <p>Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo no Telegram.</p>
+
+  <a href="https://t.me/+PbZt1Z72R001MmIx" class="btn" target="_blank">
+    Entrar no Grupo VIP Agora
+  </a>
+
+  <footer>© 2025 | Acesso Exclusivo</footer>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+
+    fbq('init', '2043115963189457');
+    fbq('track', 'Purchase', { value: 19.90, currency: 'BRL' });
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
+  </noscript>
+</body>
+</html>
