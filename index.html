@@ -55,7 +55,6 @@
   // Lista de tokens válidos (exemplo)
   const validTokens = ["TOKEN1", "TOKEN2", "TOKEN3"]; 
 
-  // Pega o token da URL
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
 
@@ -76,7 +75,7 @@
     message.innerHTML = "Token inválido ou ausente. Por favor, finalize o pagamento para receber acesso.";
   }
 
-  // Meta Pixel
+  // --- META PIXEL CODE ---
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -86,20 +85,23 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-  // Inicializa os Pixels
+  // Inicializa os dois Pixels
   fbq('init', '2043115963189457'); // Pixel antigo
-  fbq('init', '2362506854208367'); // Pixel novo
+  fbq('init', '1174595527982213'); // Pixel novo
 
-  // Eventos
-  fbq('track', 'Purchase', { value: 19.90, currency: 'BRL', }, {pixelId: '2043115963189457'}); // antigo
-  fbq('track', 'PageView', {}, {pixelId: '2362506854208367'}); // novo
+  // Dispara os eventos para ambos os pixels
+  fbq('track', 'PageView');
+  fbq('track', 'Purchase', {
+    value: 19.90,
+    currency: 'BRL'
+  });
 </script>
 
 <noscript>
-<img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
-<img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=2362506854208367&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
+  <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1174595527982213&ev=Purchase&noscript=1"/>
 </noscript>
 </body>
 </html>
