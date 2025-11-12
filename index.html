@@ -61,20 +61,6 @@
   const message = document.getElementById("message");
   const vipLink = document.getElementById("vip-link");
 
-  if(token && validTokens.includes(token)){
-    message.innerHTML = "Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo!";
-    vipLink.style.display = "block";
-
-    setTimeout(()=>{
-      const index = validTokens.indexOf(token);
-      if(index !== -1) validTokens.splice(index,1);
-      vipLink.style.display='none';
-      message.innerHTML='Token expirado. Refaça o processo de pagamento.';
-    },10*60*1000);
-  } else {
-    message.innerHTML = "Token inválido ou ausente. Por favor, finalize o pagamento para receber acesso.";
-  }
-
   // --- META PIXEL CODE ---
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -89,19 +75,28 @@
   fbq('init', '2043115963189457'); // Pixel antigo
   fbq('init', '1174595527982213'); // Pixel novo
 
-  // Dispara os eventos para ambos os pixels
+  // PageView sempre dispara
   fbq('track', 'PageView');
-  fbq('track', 'Purchase', {
-    value: 19.90,
-    currency: 'BRL'
-  });
-</script>
 
-<noscript>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2043115963189457&ev=Purchase&noscript=1"/>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1174595527982213&ev=Purchase&noscript=1"/>
-</noscript>
-</body>
-</html>
+  // Verificação do token e disparo do evento de compra
+  if (token && validTokens.includes(token)) {
+    message.innerHTML = "Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo!";
+    vipLink.style.display = "block";
+
+    // 🔥 Dispara o evento Purchase apenas se o token for válido
+    fbq('track', 'Purchase', {
+      value: 19.90,
+      currency: 'BRL'
+    });
+
+    // Expira o token após 10 minutos
+    setTimeout(()=>{
+      const index = validTokens.indexOf(token);
+      if(index !== -1) validTokens.splice(index,1);
+      vipLink.style.display='none';
+      message.innerHTML='Token expirado. Refaça o processo de pagamento.';
+    },10*60*1000);
+  } else {
+    message.innerHTML = "Token inválido ou ausente. Por favor, finalize o pagamento para receber acesso.";
+  }
+</scrip
