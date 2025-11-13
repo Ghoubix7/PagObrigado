@@ -71,23 +71,22 @@
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
 
-  // Inicializa os dois Pixels
-  fbq('init', '2043115963189457'); // Pixel antigo
-  fbq('init', '1174595527982213'); // Pixel novo
-
-  // PageView sempre dispara
+  // Inicializa o pixel único
+  fbq('init', '1174595527982213');
+  
+  // Dispara PageView sempre
   fbq('track', 'PageView');
 
-  // Verificação do token e disparo do evento de compra
+  // Dispara Purchase sempre que abrir a página (teste)
+  fbq('track', 'Purchase', {
+    value: 10.00,
+    currency: 'BRL'
+  });
+
+  // Exibição condicional do botão
   if (token && validTokens.includes(token)) {
     message.innerHTML = "Seu acesso VIP foi liberado ✅<br/>Clique no botão abaixo para entrar no grupo exclusivo!";
     vipLink.style.display = "block";
-
-    // 🔥 Dispara o evento Purchase apenas se o token for válido
-    fbq('track', 'Purchase', {
-      value: 19.90,
-      currency: 'BRL'
-    });
 
     // Expira o token após 10 minutos
     setTimeout(()=>{
@@ -99,4 +98,11 @@
   } else {
     message.innerHTML = "Token inválido ou ausente. Por favor, finalize o pagamento para receber acesso.";
   }
-</scrip
+</script>
+
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1174595527982213&ev=Purchase&noscript=1"/>
+</noscript>
+</body>
+</html>
